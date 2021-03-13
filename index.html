@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>my favorite 5 sites</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="http://maps.google.com/maps/api/js?sensor=false"
+      type="text/javascript"
+    ></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrapper site-header__wrapper">
+        <a href="/index.html" class="brand">Home</a>
+        <nav class="nav">
+          <button class="nav__toggle" aria-expanded="false" type="button">
+            menu
+          </button>
+          <ul class="nav__wrapper">
+            <li class="nav__item">
+              <a href="/grandcanyon.html">Grand Canyon</a>
+            </li>
+            <li class="nav__item"><a href="/matsada.html">Matsada</a></li>
+            <li class="nav__item">
+              <a href="/yellowstone.html">Yellowstone</a>
+            </li>
+            <li class="nav__item"><a href="/deadsea.html">Dead Sea</a></li>
+            <li class="nav__item"><a href="/prague.html">Prague</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div id="map" style="width: 500px; height: 400px" class="google_map"></div>
+
+    <script type="text/javascript">
+      var locations = [
+        ["Dead Sea", 31.559, 35.4732, 4],
+        ["Matsada", 31.3114, 35.3627, 5],
+        ["Grand Canyon", 36.0544, -112.1401, 3],
+        ["Yellowstone", 44.428, -110.5885, 2],
+        ["Prague", 50.0755, 14.4378, 1],
+      ];
+
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 2,
+        center: new google.maps.LatLng(40.1, -30.01),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      });
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var marker, i;
+
+      for (i = 0; i < locations.length; i++) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+          map: map,
+        });
+
+        google.maps.event.addListener(
+          marker,
+          "click",
+          (function (marker, i) {
+            return function () {
+              infowindow.setContent(locations[i][0]);
+              infowindow.open(map, marker);
+            };
+          })(marker, i)
+        );
+      }
+    </script>
+
+    <script src="" async defer></script>
+  </body>
+</html>
